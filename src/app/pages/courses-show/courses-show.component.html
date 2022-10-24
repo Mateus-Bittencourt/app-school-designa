@@ -1,0 +1,10 @@
+<a [routerLink]="['/cursos']">Voltar</a>
+
+<div *ngIf="loading">
+  <h2>Carregando...</h2>
+</div>
+
+<div *ngIf="!loading">
+  <h1>{{ course.name }}</h1>
+  <p>{{ course.description }}</p>
+</div>

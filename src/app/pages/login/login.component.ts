@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   public formGroup: FormGroup = new FormGroup({
     email: new FormControl('mateus@gmail.com', [Validators.required, Validators.email]),
@@ -21,6 +21,10 @@ export class LoginComponent {
     private authService: AuthService
   ) { }
 
+  ngOnInit(): void {
+    this.authService.logout();
+  }
+
 
   public login(): void {
     if(this.formGroup.valid) {
@@ -29,6 +33,7 @@ export class LoginComponent {
           user: this.formGroup.value
         }
       ).then( data => {
+        console.log(data);
         this.authService.login(data);
       }).catch( error => {
         console.log(error);

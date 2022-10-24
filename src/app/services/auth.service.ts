@@ -20,10 +20,10 @@ export class AuthService {
 
   // Realizar o login do usuário
   // armazendo o e-mail informado no localStorage
-  public login(login: User): void {
-    if (login) {
-      localStorage.setItem('user', JSON.stringify(login));
-      this.router.navigateByUrl('/dashboard/cursos');
+  public login(user: User): void {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      this.router.navigateByUrl('/cursos');
     }
   }
 
