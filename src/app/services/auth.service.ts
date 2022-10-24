@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 
@@ -6,7 +6,13 @@ import { User } from 'src/app/models/user';
   providedIn: 'root',
 })
 export class AuthService {
+
   constructor(private router: Router) {}
+
+  public logged: boolean = false;
+
+  userLogged = new EventEmitter<User>();
+  userLoggedOut = new EventEmitter<User>();
 
   // Retornar se o usuário está logado
   public isLoggedIn(): boolean {
@@ -23,12 +29,17 @@ export class AuthService {
   public login(user: User): void {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
-      this.router.navigateByUrl('/cursos');
+      // this.router.navigateByUrl('/cursos');
+      if (user.kind === 'teacher') {
+        this.router.navigateByUrl(`${user.kind}/cursos`);
+      }
+      this.logged = true;
     }
   }
 
   // Realiza o logout, limpando o localStorage
   public logout(): void {
     localStorage.clear();
+    this.logged = false;
   }
 }

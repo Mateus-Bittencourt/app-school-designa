@@ -15,17 +15,18 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
       </ul>
       <!-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form> -->
+      <div class="user-logged" *ngIf="logged" >
+        {{userLogged.email}}
+      </div>
       <div class="btn-container">
-        <a class="btn btn-outline-light" routerLink="login" *ngIf="logged">Fazer Login</a>
-        <a class="btn btn-outline-light" *ngIf="logged">Cadastre-se</a>
+        <a class="btn btn-outline-light" routerLink="login" *ngIf="!logged">Fazer Login</a>
+        <a class="btn btn-outline-light" *ngIf="!logged">Cadastre-se</a>
+        <a class="btn btn-outline-light" routerLink="login" (click)="logout()" *ngIf="logged" >Sair</a>
       </div>
     </div>
   </div>

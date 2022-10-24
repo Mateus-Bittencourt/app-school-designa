@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-12">
+      <h3>Bom dia {{currentUser.name}}</h3>
+      <h1 class="text-center">Cursos</h1>
+    </div>
+
+    <div class="row d-flex align-items-stretch" >
+      <div class= "col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let course of courses">
+        <app-course [course]="course"></app-course>
+      </div>
+    </div>
+  </div>
+</div>

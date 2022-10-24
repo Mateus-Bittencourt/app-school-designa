@@ -12,6 +12,7 @@ import { CoursesIndexComponent } from './pages/courses-index/courses-index.compo
 import { CourseComponent } from './components/course/course.component';
 import { CoursesShowComponent } from './pages/courses-show/courses-show.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { TeacherCoursesIndexComponent } from './pages/teacher-courses-index/teacher-courses-index.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     CoursesIndexComponent,
     CourseComponent,
     CoursesShowComponent,
-    NavbarComponent
+    NavbarComponent,
+    TeacherCoursesIndexComponent
   ],
   imports: [
     BrowserModule,

@@ -33,8 +33,9 @@ export class LoginComponent implements OnInit {
           user: this.formGroup.value
         }
       ).then( data => {
-        console.log(data);
+        // console.log(data);
         this.authService.login(data);
+        this.authService.userLogged.emit(data);
       }).catch( error => {
         console.log(error);
       })
