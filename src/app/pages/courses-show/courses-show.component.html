@@ -7,4 +7,14 @@
 <div *ngIf="!loading">
   <h1>{{ course.name }}</h1>
   <p>{{ course.description }}</p>
+  <hr />
+  <h4>Professor: {{ course.teacher.name }}</h4>
+  <div *ngIf="course.students.length > 0">
+    <h4>Alunos:</h4>
+    <ul>
+      <li *ngFor="let student of course.students">
+        {{ student.name }}
+      </li>
+    </ul>
+  </div>
 </div>

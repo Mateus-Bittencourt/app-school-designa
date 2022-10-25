@@ -13,6 +13,7 @@ import { CourseComponent } from './components/course/course.component';
 import { CoursesShowComponent } from './pages/courses-show/courses-show.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TeacherCoursesIndexComponent } from './pages/teacher-courses-index/teacher-courses-index.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TeacherCoursesIndexComponent } from './pages/teacher-courses-index/teac
     CourseComponent,
     CoursesShowComponent,
     NavbarComponent,
-    TeacherCoursesIndexComponent
+    TeacherCoursesIndexComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

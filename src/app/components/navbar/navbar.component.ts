@@ -13,12 +13,15 @@ export class NavbarComponent implements OnInit {
   public logged: boolean = false;
 
   public userLogged!: User;
+  public currentUser!: User;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+
   )
-   { }
+   {
+   }
 
   ngOnInit(): void {
     this.authService.userLogged.subscribe(
@@ -28,12 +31,19 @@ export class NavbarComponent implements OnInit {
         this.logged = true;
       }
     );
+    console.log(this.authService.currentUser)
+    this.currentUser = this.authService.currentUser;
   }
 
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/cursos']);
     this.logged = false;
+  }
+
+  myCourses(): void {
+    // console.log(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
+    this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
   }
 }
