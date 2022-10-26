@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
   public logged: boolean = false;
 
   public userLogged!: User;
-  public currentUser!: User;
+  public currentUser$!: Observable<User | null>
 
   constructor(
     private authService: AuthService,
@@ -24,15 +25,9 @@ export class NavbarComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.authService.userLogged.subscribe(
-      (user: User) => {
-        console.log(user);
-        this.userLogged = user;
-        this.logged = true;
-      }
-    );
+    this.logged = this.authService.isLoggedIn();
     console.log(this.authService.currentUser)
-    this.currentUser = this.authService.currentUser;
+    this.currentUser$ = this.authService.currentUserAsObservable();
   }
 
 
@@ -42,8 +37,12 @@ export class NavbarComponent implements OnInit {
     this.logged = false;
   }
 
-  myCourses(): void {
-    // console.log(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
-    this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
-  }
+  // myCourses(): void {
+  //   // console.log(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
+  //   this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
+  // }
+
+  // newCourses(): void {
+  //   this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos/novo`);
+  // }
 }

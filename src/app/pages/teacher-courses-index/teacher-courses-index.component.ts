@@ -19,7 +19,7 @@ export class TeacherCoursesIndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCourses();
-    this.currentUser = this.authService.currentUser;
+    // this.currentUser = this.authService.currentUser;
   }
 
   public loadCourses(): void {

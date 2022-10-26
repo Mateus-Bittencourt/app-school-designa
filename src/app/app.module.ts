@@ -14,6 +14,9 @@ import { CoursesShowComponent } from './pages/courses-show/courses-show.componen
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TeacherCoursesIndexComponent } from './pages/teacher-courses-index/teacher-courses-index.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { CoursesNewComponent } from './pages/courses-new/courses-new.component';
+import { TeacherCoursesShowComponent } from './pages/teacher-courses-show/teacher-courses-show.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     CoursesShowComponent,
     NavbarComponent,
     TeacherCoursesIndexComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CoursesNewComponent,
+    TeacherCoursesShowComponent,
+
   ],
   imports: [
     BrowserModule,

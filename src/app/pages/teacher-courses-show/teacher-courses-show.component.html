@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <img src="../../../assets/images/pexels-pixabay-270348.jpg" alt="" />
+      <h1>{{ course.name }}</h1>
+      <p>{{ course.description }}</p>
+      <hr />
+      <h3>Professor: {{ course.teacher.name }}</h3>
+      <h3>Alunos:</h3>
+      <ul>
+        <li *ngFor="let student of course.students">
+          {{ student.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Aulas:</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let lecture of lectures" (click)="loadLecture(lecture)">{{lecture.title}}</li>
+
+        </ul>
+      </div>
+  </div>
+</div>
+<dialog #modal class="rounded shadow">
+<div class="content-lecture" *ngIf="lecture">
+  <h1>{{lecture.title}}</h1>
+  <p>{{lecture.content}}</p>
+  <a (click)="closeModal()">Sair</a>
+</div>
+
+</dialog>

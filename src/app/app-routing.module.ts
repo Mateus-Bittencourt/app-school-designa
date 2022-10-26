@@ -6,21 +6,34 @@ import { LoginComponent } from './pages/login/login.component';
 import { TeacherCoursesIndexComponent } from './pages/teacher-courses-index/teacher-courses-index.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { CoursesNewComponent } from './pages/courses-new/courses-new.component';
+import { TeacherCoursesShowComponent } from './pages/teacher-courses-show/teacher-courses-show.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'cursos', component: CoursesIndexComponent, children: [
-    { path: ':id', component: CoursesShowComponent }
-  ]},
+  {
+    path: 'cursos',
+    component: CoursesIndexComponent,
+    children: [{ path: ':id', component: CoursesShowComponent }],
+  },
   { path: '', redirectTo: '/cursos', pathMatch: 'full' },
   // { path: 'cursos/:id', component: CoursesShowComponent },
-  { path: ':teacher_id/cursos', component: TeacherCoursesIndexComponent, canActivate: [AuthGuard] },
+  {
+    path: ':teacher',
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'cursos', component: TeacherCoursesIndexComponent },
+      { path: 'cursos/novo', component: CoursesNewComponent },
+      { path: 'cursos/:id', component: TeacherCoursesShowComponent },
+    ],
+  },
+
   { path: 'not-found', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/not-found' }
+  { path: '**', redirectTo: '/not-found' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

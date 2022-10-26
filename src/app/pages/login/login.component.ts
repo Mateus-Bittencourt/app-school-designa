@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
         }
       ).then( data => {
         // console.log(data);
-        this.authService.login(data);
-        this.authService.userLogged.emit(data);
+        this.authService.login(data)
       }).catch( error => {
         console.log(error);
       })
