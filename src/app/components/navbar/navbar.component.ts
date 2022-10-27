@@ -46,4 +46,8 @@ export class NavbarComponent implements OnInit {
     // console.log(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
     this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
   }
+
+    newCourses(): void {
+    this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos/novo`);
+  }
 }
