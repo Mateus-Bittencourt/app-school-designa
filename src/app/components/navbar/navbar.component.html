@@ -30,7 +30,7 @@
       </div>
       <div class="btn-container">
         <a class="btn btn-outline-light" routerLink="login" *ngIf="!logged">Fazer Login</a>
-        <a class="btn btn-outline-light" *ngIf="!logged">Cadastre-se</a>
+        <a class="btn btn-outline-light btn-cad" *ngIf="!logged">Cadastre-se</a>
         <a class="btn btn-outline-light" routerLink="login" (click)="logout()" *ngIf="logged" >Sair</a>
       </div>
     </div>

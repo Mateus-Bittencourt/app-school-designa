@@ -20,3 +20,14 @@
     cursor: pointer;
 
 }
+
+
+.btn-cad {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}

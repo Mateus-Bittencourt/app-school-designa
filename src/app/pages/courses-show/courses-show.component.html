@@ -1,10 +1,26 @@
-<a [routerLink]="['/cursos']">Voltar</a>
-
 <div *ngIf="loading">
   <h2>Carregando...</h2>
 </div>
 
 <div *ngIf="!loading">
+
+  <div class="card" >
+    <div class="close-wrapper">
+      <a [routerLink]="['/cursos']"><i class="fa-regular fa-circle-xmark"></i></a>
+
+    </div>
+    <img src="../../../assets/images/pexels-pixabay-270348.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ course.name }}</h5>
+      <p class="card-text">{{ course.description }}</p>
+      <p><strong>Instrutor: </strong> {{ course.teacher.name }}</p>
+      <a href="#" class="btn btn-outline-dark mt-4 d-block w-100">Inscreva-se</a>
+    </div>
+  </div>
+
+
+
+  <!-- <img src="../../../assets/images/pexels-pixabay-270348.jpg" alt="">
   <h1>{{ course.name }}</h1>
   <p>{{ course.description }}</p>
   <hr />
@@ -16,5 +32,5 @@
         {{ student.name }}
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>

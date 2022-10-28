@@ -1,0 +1,14 @@
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0px 1px 5px rgba(129, 126, 126, 0.3);
+  overflow: hidden;
+  border: 0px;
+  &:hover {
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.8);
+  }
+}

@@ -1,0 +1,41 @@
+img {
+  width: 100%;
+}
+
+.close-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+  a {
+    position: relative;
+    right: 0px;
+    top: -7px;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 0px 1px 5px rgba(132, 123, 123, 0.3);
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    &:hover {
+      color: rgba(255, 255, 255, 1);
+      text-shadow: 0px 1px 5px rgba(132, 123, 123, 0.6);
+    }
+
+  }
+}
+
+
+.card {
+  margin-top: 6.5rem;
+  height: auto;
+  .btn {
+    color: #000;
+    &:hover {
+      color: #fff;
+    }
+  }
+  border : 0;
+  border-radius: 1px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+}
