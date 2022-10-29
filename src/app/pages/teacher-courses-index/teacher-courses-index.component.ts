@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Course } from 'src/app/models/course';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -15,11 +16,11 @@ export class TeacherCoursesIndexComponent implements OnInit {
 
   public courses!: Course[];
   public loading: boolean = true;
-  public currentUser!: User;
+  public currentUser$!: Observable<User | null>
 
   ngOnInit(): void {
     this.loadCourses();
-    // this.currentUser = this.authService.currentUser;
+    this.currentUser$ = this.authService.currentUserAsObservable();
   }
 
   public loadCourses(): void {

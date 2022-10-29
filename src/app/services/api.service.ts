@@ -55,8 +55,8 @@ export class ApiService {
     };
 
     if (this.authService.isLoggedIn()) {
-      // headers['X-User-Email'] = this.authService.currentUser.email;
-      // headers['X-User-Token'] = this.authService.currentUser.authentication_token;
+      headers['X-User-Email'] = this.authService.currentUser.email;
+      headers['X-User-Token'] = this.authService.currentUser.authentication_token;
     }
 
     return {

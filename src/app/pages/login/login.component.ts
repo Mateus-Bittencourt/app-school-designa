@@ -25,15 +25,9 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
   }
 
-
   public login(): void {
     if(this.formGroup.valid) {
-      this.apiService.post<User>('sessions',
-        {
-          user: this.formGroup.value
-        }
-      ).then( data => {
-        // console.log(data);
+      this.apiService.post<User>('sessions',{ user: this.formGroup.value }).then( data => {
         this.authService.login(data)
       }).catch( error => {
         console.log(error);

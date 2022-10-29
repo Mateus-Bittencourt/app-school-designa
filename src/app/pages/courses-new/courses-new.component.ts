@@ -27,9 +27,9 @@ export class CoursesNewComponent implements OnInit {
 
   public save(): void {
     this.apiService.post<SuccessModel>('courses', this.form.value).then( _ => {
-      // this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
+      this.router.navigateByUrl(`${this.currentUser.name.replace(/\s/g, '')}/cursos`);
     }).catch( err => {
-      alert(err.error.error);
+      alert(err.error.errors[0]);
     });
 
   }
