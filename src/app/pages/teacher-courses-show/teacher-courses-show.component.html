@@ -1,17 +1,25 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <div class="col-md-8">
-      <img src="../../../assets/images/pexels-pixabay-270348.jpg" alt="" />
-      <h1>{{ course.name }}</h1>
-      <p>{{ course.description }}</p>
-      <hr />
-      <h3>Professor: {{ course.teacher.name }}</h3>
-      <h3>Alunos:</h3>
-      <ul>
-        <li *ngFor="let student of course.students">
-          {{ student.name }}
-        </li>
-      </ul>
+      <div class="card">
+        <img src="../../../assets/images/pexels-pixabay-270348.jpg" alt="" />
+        <div class="card-body">
+          <h1>{{ course.name }}</h1>
+          <p>{{ course.description }}</p>
+          <hr />
+          <div class="d-flex justify-content-between">
+            <h5>Instrutor: {{ course.teacher.name }}</h5>
+            <div>
+              <h5>Alunos:</h5>
+              <dl>
+                <dd *ngFor="let student of course.students">
+                  {{ student.name }}
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <div class="card">
@@ -33,16 +41,25 @@
       </div>
     </div>
   </div>
-  <dialog #modal class="rounded shadow">
+  <dialog #modal class="rounded shadow modal-lecture">
     <div class="content-lecture" *ngIf="lecture">
+      <div class="close-wrapper">
+        <a (click)="closeModal()"><i class="fa-regular fa-circle-xmark"></i></a>
+      </div>
       <h1>{{ lecture.title }}</h1>
+      <div class="video-content">
+        <iframe
+        width=100%
+        height="400"
+        src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
+      >
+      </iframe>
+      </div>
       <p>{{ lecture.content }}</p>
-      <a (click)="closeModal()">Sair</a>
     </div>
   </dialog>
 
-
-  <dialog #modal2 class="rounded shadow">
+  <dialog #modal2 class="rounded shadow modal-lecture">
     <div class="content-lecture">
       <h1>Nova aula</h1>
       <form (ngSubmit)="saveLecture()" [formGroup]="formLecture">
@@ -54,7 +71,6 @@
             id="title"
             placeholder="Título da aula"
             formControlName="title"
-
           />
         </div>
         <div class="form-group">
@@ -64,7 +80,6 @@
             id="content"
             rows="3"
             formControlName="content"
-
           ></textarea>
           <button type="submit" class="btn btn-outline-dark mt-4 d-block w-50">
             Salvar
