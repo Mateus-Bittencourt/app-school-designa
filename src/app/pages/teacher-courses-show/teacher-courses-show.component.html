@@ -9,7 +9,7 @@
           <hr />
           <div class="d-flex justify-content-between">
             <h5>Instrutor: {{ course.teacher.name }}</h5>
-            <div>
+            <div *ngIf="course.students.length > 0">
               <h5>Alunos:</h5>
               <dl>
                 <dd *ngFor="let student of course.students">
@@ -47,23 +47,37 @@
         <a (click)="closeModal()"><i class="fa-regular fa-circle-xmark"></i></a>
       </div>
       <h1>{{ lecture.title }}</h1>
-      <div class="video-content">
+      <div class="video-content"  *ngIf="lecture.video_url">
+        <!-- src="https://www.youtube.com/embed/wVI-7fRtsNI" -->
         <iframe
-        width=100%
-        height="400"
-        src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
+          width="100%"
+          height="315"
+          [src]="video_url"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          id="video"
       >
       </iframe>
       </div>
-      <p>{{ lecture.content }}</p>
+      <div
+      class="lecture-content"
+      [innerText]="lecture.content"
+      >
+      </div>
     </div>
   </dialog>
 
   <dialog #modal2 class="rounded shadow modal-lecture">
     <div class="content-lecture">
-      <h1>Nova aula</h1>
+      <div class="close-wrapper">
+        <a (click)="closeModal2()"><i class="fa-regular fa-circle-xmark"></i></a>
+      </div>
+      <div class="row justify-content-center">
+        <h1>Nova aula</h1>
+      <div class="col-md-10">
       <form (ngSubmit)="saveLecture()" [formGroup]="formLecture">
-        <div class="form-group">
+        <div class="form-group mt-2">
           <label for="title">Título</label>
           <input
             type="text"
@@ -73,19 +87,33 @@
             formControlName="title"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group mt-2">
+          <label for="video_url">Video URL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="video_url"
+            placeholder="Título da aula"
+            formControlName="video_url"
+          />
+        </div>
+        <div class="form-group mt-2">
           <label for="content">Conteúdo</label>
           <textarea
             class="form-control"
             id="content"
-            rows="3"
+            rows="10"
             formControlName="content"
           ></textarea>
+          <div class="form-group d-flex justify-content-center">
           <button type="submit" class="btn btn-outline-dark mt-4 d-block w-50">
             Salvar
           </button>
         </div>
+        </div>
       </form>
     </div>
+    </div>
+  </div>
   </dialog>
 </div>

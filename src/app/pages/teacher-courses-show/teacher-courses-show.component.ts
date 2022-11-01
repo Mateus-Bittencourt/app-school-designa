@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/course';
 import { Lecture } from 'src/app/models/lecture';
@@ -16,11 +17,13 @@ export class TeacherCoursesShowComponent implements OnInit {
   public course!: Course;
   public path_coures: string = `/courses/${this.id}`;
   public lecture!: Lecture;
+  public video_url: SafeUrl = '';
 
   public lectures: Lecture[] = []
 
   public formLecture: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
+    video_url: new FormControl(''),
     content: new FormControl('', [Validators.required])
   });
 
@@ -31,8 +34,9 @@ export class TeacherCoursesShowComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private apiService: ApiService
+    // private router: Router,
+    private apiService: ApiService,
+    private sanitizer: DomSanitizer,
   ) { }
 
 
@@ -43,15 +47,24 @@ export class TeacherCoursesShowComponent implements OnInit {
     this.lectures = await this.apiService.get<Lecture[]>(`/courses/${this.id}/lectures`);
   }
 
-  loadLecture(lecture: Lecture) {
-    this.lecture = lecture;
+  async loadLecture(lecture: Lecture) {
+    this.lecture = await this.apiService.get<Lecture>(`/courses/${this.id}/lectures/${lecture.id}`);
+    if (this.lecture.video_url) {
+      this.video_url = this.sanitizer.bypassSecurityTrustResourceUrl(this.lecture.video_url.replace('watch?v=', 'embed/'));
+    }
     this.modal?.nativeElement.showModal();
   }
 
 
   closeModal() {
     this.modal?.nativeElement.close();
+    this.stopVideo(this.modal);
   }
+
+  closeModal2() {
+    this.modal2?.nativeElement.close();
+  }
+
   newLecture() {
     this.modal2?.nativeElement.showModal();
   }
@@ -64,4 +77,17 @@ export class TeacherCoursesShowComponent implements OnInit {
       alert(err.error.error);
     });
   }
+
+  private stopVideo = function ( element: any ) {
+    var iframe = element.querySelector( 'iframe');
+    var video = element.getElementById( 'video' );
+    if ( iframe ) {
+      var iframeSrc = iframe.src;
+      iframe.src = iframeSrc;
+    }
+    if ( video ) {
+      video.pause();
+    }
+  };
+
 }
