@@ -11,11 +11,11 @@
           <a class="nav-link" [routerLink]="['cursos']">Cursos</a>
         </li>
 
-          <li class="nav-item" *ngIf="isTeacher">
+          <li class="nav-item" *ngIf="authService.isTeacher">
             <a class="nav-link" (click)="newCourses()">Novo curso</a>
           </li>
 
-          <li class="nav-item" *ngIf="logged">
+          <li class="nav-item" *ngIf="authService.isLoggedIn">
             <a class="nav-link" (click)="myCourses()" >Meus cursos</a>
           </li>
 
@@ -25,13 +25,13 @@
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form> -->
-      <div class="user-logged" *ngIf="logged" >
-        {{userLogged.email}}
+      <div class="user-logged" *ngIf="currentUser$ | async as currentUser" >
+        {{currentUser.email}}
       </div>
       <div class="btn-container">
-        <a class="btn btn-outline-light" routerLink="login" *ngIf="!logged">Fazer Login</a>
-        <a class="btn btn-outline-light btn-cad" *ngIf="!logged">Cadastre-se</a>
-        <a class="btn btn-outline-light" routerLink="login" (click)="logout()" *ngIf="logged" >Sair</a>
+        <a class="btn btn-outline-light" routerLink="login" *ngIf="!authService.isLoggedIn()">Fazer Login</a>
+        <a class="btn btn-outline-light btn-cad" *ngIf="!authService.isLoggedIn()">Cadastre-se</a>
+        <a class="btn btn-outline-light" routerLink="login" (click)="logout()" *ngIf="authService.isLoggedIn()" >Sair</a>
       </div>
     </div>
   </div>

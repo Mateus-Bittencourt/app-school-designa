@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   public formGroup: FormGroup = new FormGroup({
-    email: new FormControl('nath@gmail.com', [Validators.required, Validators.email]),
+    email: new FormControl('mateus@gmail.com', [Validators.required, Validators.email]),
     password: new FormControl('secret', [Validators.required, Validators.minLength(6)])
   });
 
@@ -25,17 +25,10 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
   }
 
-
   public login(): void {
     if(this.formGroup.valid) {
-      this.apiService.post<User>('sessions',
-        {
-          user: this.formGroup.value
-        }
-      ).then( data => {
-        // console.log(data);
-        this.authService.login(data);
-        this.authService.userLogged.emit(data);
+      this.apiService.post<User>('sessions',{ user: this.formGroup.value }).then( data => {
+        this.authService.login(data)
       }).catch( error => {
         console.log(error);
       })

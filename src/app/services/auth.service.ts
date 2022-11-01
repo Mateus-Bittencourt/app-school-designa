@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 
 @Injectable({
@@ -9,24 +10,29 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
-  public logged: boolean = false;
-
-  userLogged = new EventEmitter<User>();
-  userLoggedOut = new EventEmitter<User>();
+  public _currentUser = new BehaviorSubject<User>(this.currentUser);
 
   // Retornar se o usuário está logado
   public isLoggedIn(): boolean {
-    return !!localStorage["user"];
-  }
-
-    // Retorna se é professor
-    public get isTeacher(): boolean {
-      return this.currentUser.kind == "teacher"
+    try {
+      return !!localStorage["user"];
+    } catch {
+      return false
     }
+  }
 
   // Retornar qual usuário está logado
   public get currentUser(): User {
     return localStorage["user"] ? JSON.parse(localStorage["user"]) : {};
+  }
+
+  public currentUserAsObservable(): Observable<User> {
+    return this._currentUser.asObservable();
+  }
+
+  // Retorna se é professor
+  public get isTeacher(): boolean {
+    return this.currentUser.kind == "teacher"
   }
 
   // Realizar o login do usuário
@@ -34,17 +40,20 @@ export class AuthService {
   public login(user: User): void {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
-      // this.router.navigateByUrl('/cursos');
 
+      if (user.kind === 'teacher') {
         this.router.navigateByUrl(`${user.name.replace(/\s/g, '')}/cursos`);
+      } else {
+        this.router.navigateByUrl('/cursos');
+      }
 
-      this.logged = true;
+      this._currentUser.next(user);
     }
   }
 
   // Realiza o logout, limpando o localStorage
   public logout(): void {
     localStorage.clear();
-    this.logged = false;
   }
+
 }
