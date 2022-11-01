@@ -19,9 +19,14 @@ export class AuthService {
     return !!localStorage["user"];
   }
 
+    // Retorna se é professor
+    public get isTeacher(): boolean {
+      return this.currentUser.kind == "teacher"
+    }
+
   // Retornar qual usuário está logado
   public get currentUser(): User {
-    return JSON.parse(localStorage["user"]);
+    return localStorage["user"] ? JSON.parse(localStorage["user"]) : {};
   }
 
   // Realizar o login do usuário
@@ -30,9 +35,9 @@ export class AuthService {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
       // this.router.navigateByUrl('/cursos');
-      if (user.kind === 'teacher') {
+
         this.router.navigateByUrl(`${user.name.replace(/\s/g, '')}/cursos`);
-      }
+
       this.logged = true;
     }
   }

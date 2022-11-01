@@ -11,7 +11,7 @@
           <a class="nav-link" [routerLink]="['cursos']">Cursos</a>
         </li>
 
-          <li class="nav-item" *ngIf="logged">
+          <li class="nav-item" *ngIf="isTeacher">
             <a class="nav-link" (click)="newCourses()">Novo curso</a>
           </li>
 

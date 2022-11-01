@@ -18,7 +18,14 @@ export class TeacherCoursesIndexComponent implements OnInit {
   public currentUser!: User;
 
   ngOnInit(): void {
-    this.loadCourses();
+    if (this.authService.currentUser.kind === 'teacher') {
+
+      this.loadCourses();
+    } else {
+      this.loadStudentCourses();
+    }
+
+
     this.currentUser = this.authService.currentUser;
   }
 
@@ -26,6 +33,20 @@ export class TeacherCoursesIndexComponent implements OnInit {
     this.loading = true;
     this.apiService
       .get<Course[]>('teacher_courses')
+      .then((courses: Course[]) => {
+        this.courses = courses;
+        this.loading = false;
+      })
+      .catch((error: HttpErrorResponse) => {
+        console.log(error);
+        this.loading = false;
+      });
+  }
+
+  public loadStudentCourses(): void {
+    this.loading = true;
+    this.apiService
+      .get<Course[]>('subscriptions')
       .then((courses: Course[]) => {
         this.courses = courses;
         this.loading = false;

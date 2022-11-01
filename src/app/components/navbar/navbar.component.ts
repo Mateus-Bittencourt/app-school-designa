@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
 
   public userLogged!: User;
   public currentUser!: User;
+  public isTeacher: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -29,10 +30,12 @@ export class NavbarComponent implements OnInit {
         console.log(user);
         this.userLogged = user;
         this.logged = true;
+        this.isTeacher = this.authService.isTeacher;
       }
     );
     console.log(this.authService.currentUser)
     this.currentUser = this.authService.currentUser;
+    this.isTeacher = this.authService.isTeacher;
   }
 
 

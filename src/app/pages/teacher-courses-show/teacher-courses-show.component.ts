@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Course } from 'src/app/models/course';
 import { Lecture } from 'src/app/models/lecture';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-teacher-courses-show',
@@ -18,6 +19,7 @@ export class TeacherCoursesShowComponent implements OnInit {
   public path_coures: string = `/courses/${this.id}`;
   public lecture!: Lecture;
   public video_url: SafeUrl = '';
+  public isTeacher: boolean = false;
 
   public lectures: Lecture[] = []
 
@@ -37,10 +39,12 @@ export class TeacherCoursesShowComponent implements OnInit {
     // private router: Router,
     private apiService: ApiService,
     private sanitizer: DomSanitizer,
+    private authService: AuthService
   ) { }
 
 
   public async ngOnInit(): Promise<void> {
+    this.isTeacher = this.authService.isTeacher;
     // this.loading = true;
     this.course = await this.apiService.get<Course>(this.path_coures);
     // this.loading = false;
@@ -58,7 +62,7 @@ export class TeacherCoursesShowComponent implements OnInit {
 
   closeModal() {
     this.modal?.nativeElement.close();
-    this.stopVideo(this.modal);
+
   }
 
   closeModal2() {
@@ -78,16 +82,6 @@ export class TeacherCoursesShowComponent implements OnInit {
     });
   }
 
-  private stopVideo = function ( element: any ) {
-    var iframe = element.querySelector( 'iframe');
-    var video = element.getElementById( 'video' );
-    if ( iframe ) {
-      var iframeSrc = iframe.src;
-      iframe.src = iframeSrc;
-    }
-    if ( video ) {
-      video.pause();
-    }
-  };
+
 
 }

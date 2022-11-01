@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/course';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -9,13 +10,17 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./courses-index.component.scss'],
 })
 export class CoursesIndexComponent implements OnInit {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService,
+    private route: ActivatedRoute,
+    ) {}
 
   public courses!: Course[];
   public loading: boolean = true;
 
+
   ngOnInit(): void {
     this.loadCourses();
+
   }
 
   public loadCourses(): void {
