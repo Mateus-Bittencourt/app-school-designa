@@ -54,7 +54,8 @@ export class CoursesShowComponent implements OnInit {
           );
         })
         .catch((err) => {
-          alert(err.error.error);
+          alert('Você já está inscrito neste curso');
+          console.log(err);
         });
     } else {
       alert('Você precisa estar logado para se inscrever em um curso.');
