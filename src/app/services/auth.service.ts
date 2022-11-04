@@ -41,11 +41,9 @@ export class AuthService {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
 
-      if (user.kind === 'teacher') {
+
         this.router.navigateByUrl(`${user.name.replace(/\s/g, '')}/cursos`);
-      } else {
-        this.router.navigateByUrl('/cursos');
-      }
+
 
       this._currentUser.next(user);
     }

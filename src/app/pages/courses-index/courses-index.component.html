@@ -8,11 +8,29 @@
 
       <div class="row d-flex align-items-stretch" >
         <div class= "col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" *ngFor="let course of courses">
-          <app-course [course]="course"></app-course>
+          <app-course [course]="course" (onSelectedCourse)="onSelectedCourse(course)"></app-course>
         </div>
       </div>
     </div>
     <div class="col-4">
-      <router-outlet></router-outlet>
-    </div>
+      <div *ngIf="!selectedCourse">
+        <img src="../../../assets/images/pexels-photo-7988086.jpeg" alt="">
+      </div>
+
+      <div *ngIf="selectedCourse" class="show-course">
+
+        <div class="card" >
+          <div class="close-wrapper">
+            <a (click)="selectedCourse = null"><i class="fa-regular fa-circle-xmark"></i></a>
+
+          </div>
+          <img src="../../../assets/images/pexels-pixabay-270348.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ selectedCourse.name }}</h5>
+            <p class="card-text">{{ selectedCourse.description }}</p>
+            <p><strong>Instrutor: </strong> {{ selectedCourse.teacher.name }}</p>
+            <a (click)="studentSubscribe()" class="btn btn-outline-dark mt-4 d-block w-100" *ngIf="!isTeacher">Inscreva-se</a>
+          </div>
+        </div>
+      </div>
   </div>
